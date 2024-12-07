@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <style>
+.weatherwidget-io .forecast-day:nth-child(n+4) {
+  display: none; /* 隐藏第四天及以后的天气信息 */
+}
+</style>
 </head>
 <body>
   <a class="weatherwidget-io" href="https://forecast7.com/en/31d23121d47/shanghai/" data-label_1="SHANGHAI" data-label_2="WEATHER" data-theme="dark" >SHANGHAI WEATHER</a>
