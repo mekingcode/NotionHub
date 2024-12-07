@@ -2,17 +2,42 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Weather Widget</title>
   <style>
-.weatherwidget-io .forecast-day:nth-child(n+4) {
-  display: none; /* 隐藏第四天及以后的天气信息 */
-}
-</style>
+    /* 初始隐藏所有天气天数 */
+    .weatherwidget-io .forecast-day {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <a class="weatherwidget-io" href="https://forecast7.com/en/31d23121d47/shanghai/" data-label_1="SHANGHAI" data-label_2="WEATHER" data-theme="dark" >SHANGHAI WEATHER</a>
-<script>
-!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-</script>
+  <a class="weatherwidget-io" href="https://forecast7.com/en/31d23121d47/shanghai/" data-label_1="SHANGHAI" data-label_2="WEATHER" data-theme="dark">SHANGHAI WEATHER</a>
+  
+  <script>
+    !function(d,s,id){
+      var js,fjs=d.getElementsByTagName(s)[0];
+      if(!d.getElementById(id)){
+        js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';
+        fjs.parentNode.insertBefore(js,fjs);
+      }
+    }(document,'script','weatherwidget-io-js');
+
+    // 等待 widget 加载完成后修改 DOM
+    window.onload = function() {
+      // 等待 widget 渲染的时间
+      setTimeout(function() {
+        var days = document.querySelectorAll('.weatherwidget-io .forecast-day');
+        
+        // 只显示前 3 天
+        for (var i = 0; i < days.length; i++) {
+          if (i >= 3) {
+            days[i].style.display = 'none';  // 隐藏多余的天气天数
+          } else {
+            days[i].style.display = 'block'; // 显示前 3 天
+          }
+        }
+      }, 1000); // 延迟时间根据实际加载情况调整
+    };
+  </script>
 </body>
 </html>
