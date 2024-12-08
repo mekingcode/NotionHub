@@ -8,7 +8,7 @@
   <style>
     :root {
       font-size: 1rem;
-      /* 可调整基础字体大小，控制整体比例 */
+      /* 控制基础字体大小 */
     }
 
     body {
@@ -26,15 +26,18 @@
       align-items: center;
       justify-content: space-between;
       border: 1px solid #4caf50;
-      border-radius: 0px;
+      border-radius: 5px;
       background: white;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      width: 90%;
-      max-width: 400px;
+      width: 400px;
+      /* 容器宽度 */
+      height: 50px;
+      /* 容器高度 */
     }
 
     .time {
-      font-size: 3rem;
+      font-size: 1.2rem;
+      /* 调整时间字体大小 */
       font-weight: bold;
       text-align: center;
       flex: 1;
@@ -43,21 +46,26 @@
     .controls {
       display: flex;
       gap: 5px;
+      padding-right: 5px;
+      /* 控制按钮与容器右侧的距离 */
     }
 
     .controls button {
-      font-size: 2rem;
+      font-size: 0.8rem;
+      /* 调整按钮文字大小 */
+      padding: 5px 10px;
+      /* 按钮内边距 */
       border: none;
-      border-radius: 0px;
+      border-radius: 3px;
       cursor: pointer;
       background-color: #4caf50;
       color: white;
       transition: background-color 0.3s;
-      margin: 2px;
     }
 
     #reset {
-      margin-right: 15px;
+      margin-right: 0;
+      /* 清除多余的右边距 */
     }
 
     .controls button:hover {
@@ -71,7 +79,7 @@
     <div class="time">00:00:00</div>
     <div class="controls">
       <button id="start-pause">▶️</button>
-      <button id="reset">◾</button>
+      <button id="reset">⏹</button>
     </div>
   </div>
   <script>
