@@ -30,7 +30,7 @@
       background: white;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       width: 90%;
-      max-width: 600px;
+      max-width: 400px;
     }
 
     .time {
@@ -42,19 +42,22 @@
 
     .controls {
       display: flex;
-      gap: 0.5rem;
+      gap: 5px;
     }
 
     .controls button {
       font-size: 2rem;
-      padding: 0.5rem 1rem;
       border: none;
       border-radius: 0px;
       cursor: pointer;
       background-color: #4caf50;
       color: white;
       transition: background-color 0.3s;
-      margin: 1rem;
+      margin: 2px;
+    }
+
+    #reset {
+      margin-right: 15px;
     }
 
     .controls button:hover {
@@ -68,7 +71,7 @@
     <div class="time">00:00:00</div>
     <div class="controls">
       <button id="start-pause">▶️</button>
-      <button id="reset">⏹</button>
+      <button id="reset">◾</button>
     </div>
   </div>
   <script>
