@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #e6f0fa;
+        }
+        .timer {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+        .timer circle {
+            fill: none;
+            stroke-width: 15;
+        }
+        .timer .background {
+            stroke: #d3d3d3;
+        }
+        .timer .progress {
+            stroke: #4caf50;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        .time {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .controls {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .controls button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer">
+        <svg width="200" height="200">
+            <circle class="background" cx="100" cy="100" r="90"></circle>
+            <circle class="progress" cx="100" cy="100" r="90" style="stroke-dasharray: 565; stroke-dashoffset: 0;"></circle>
+        </svg>
+        <div class="time">25:00</div>
+        <div class="controls">
+            <button id="start-pause">⏸</button>
+            <button id="reset">⏹</button>
+        </div>
+    </div>
+    <script>
+        const timeDisplay = document.querySelector('.time');
+        const progressCircle = document.querySelector('.progress');
+        const startPauseButton = document.getElementById('start-pause');
+        const resetButton = document.getElementById('reset');
+        const totalTime = 25 * 60; // 25 minutes in seconds
+        let timeLeft = totalTime;
+        let isRunning = false;
+        let timerInterval;
+
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timeDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            const progress = (timeLeft / totalTime) * 565;
+            progressCircle.style.strokeDashoffset = 565 - progress;
+        }
+
+        function startPauseTimer() {
+            if (isRunning) {
+                clearInterval(timerInterval);
+                isRunning = false;
+                startPauseButton.textContent = '▶';
+            } else {
+                isRunning = true;
+                startPauseButton.textContent = '⏸';
+                timerInterval = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateTimer();
+                    } else {
+                        clearInterval(timerInterval);
+                        alert('Time is up!');
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timeLeft = totalTime;
+            isRunning = false;
+            startPauseButton.textContent = '▶';
+            updateTimer();
+        }
+
+        startPauseButton.addEventListener('click', startPauseTimer);
+        resetButton.addEventListener('click', resetTimer);
+
+        updateTimer();
+    </script>
+</body>
+</html>
