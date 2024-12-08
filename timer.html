@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch Timer</title>
+    <style>
+        :root {
+            font-size: 1rem; /* 可调整基础字体大小，控制整体比例 */
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #e6f0fa;
+        }
+        .timer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            border: 2px solid #4caf50;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+        .time {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            flex: 1;
+        }
+        .controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .controls button {
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #4caf50;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .controls button:hover {
+            background-color: #388e3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer-container">
+        <div class="time">00:00:00</div>
+        <div class="controls">
+            <button id="start-pause">▶ 开始</button>
+            <button id="reset">⏹ 复位</button>
+        </div>
+    </div>
+    <script>
+        const timeDisplay = document.querySelector('.time');
+        const startPauseButton = document.getElementById('start-pause');
+        const resetButton = document.getElementById('reset');
+
+        let timeElapsed = 0; // 秒为单位
+        let isRunning = false;
+        let timerInterval;
+
+        function formatTime(seconds) {
+            const hrs = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            return `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        function updateTimer() {
+            timeDisplay.textContent = formatTime(timeElapsed);
+        }
+
+        function startPauseTimer() {
+            if (isRunning) {
+                clearInterval(timerInterval);
+                isRunning = false;
+                startPauseButton.textContent = '▶ 开始';
+            } else {
+                isRunning = true;
+                startPauseButton.textContent = '⏸ 暂停';
+                timerInterval = setInterval(() => {
+                    timeElapsed++;
+                    updateTimer();
+                }, 1000);
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timeElapsed = 0;
+            isRunning = false;
+            startPauseButton.textContent = '▶ 开始';
+            updateTimer();
+        }
+
+        startPauseButton.addEventListener('click', startPauseTimer);
+        resetButton.addEventListener('click', resetTimer);
+
+        // 初始化显示
+        updateTimer();
+    </script>
+</body>
+</html>
